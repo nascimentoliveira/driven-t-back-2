@@ -1,12 +1,12 @@
 import { queryParamRequired } from "@/errors/query-param-required";
 import { AuthenticatedRequest } from "@/middlewares";
-import paymentsService from "@/services/payments-service";
+import paymentsService, { PaymentParams } from "@/services/payments-service";
 import { Response } from "express";
 import httpStatus from "http-status";
 
 export async function createPayment(req: AuthenticatedRequest, res: Response) {
   try {
-    const paymentParams = {
+    const paymentParams: PaymentParams = {
       ticketId: req.body.ticketId,
       cardIssuer: req.body.cardData.issuer,
       cardLastDigits: req.body.cardData.number.substr(-4)

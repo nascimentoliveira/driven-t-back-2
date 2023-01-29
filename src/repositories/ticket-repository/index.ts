@@ -1,16 +1,35 @@
 import { prisma } from "@/config";
+import { TicketReturn } from "@/protocols";
 import { Prisma, Ticket, TicketType } from "@prisma/client";
 
-async function create(ticket: Prisma.TicketUncheckedCreateInput) {
+async function create(ticket: Prisma.TicketUncheckedCreateInput): Promise<TicketReturn> {
   return prisma.ticket.create({
     data: ticket,
+    select: {
+      id: true,
+      status: true,
+      ticketTypeId: true,
+      enrollmentId: true,
+      TicketType: true,
+      createdAt: true,
+      updatedAt: true,
+    },
   });
 }
 
-async function findByEnroll(enrollmentId: number): Promise<Ticket> {
+async function findByEnroll(enrollmentId: number): Promise<TicketReturn> {
   return prisma.ticket.findFirst({
     where: {
       enrollmentId,
+    },
+    select: {
+      id: true,
+      status: true,
+      ticketTypeId: true,
+      enrollmentId: true,
+      TicketType: true,
+      createdAt: true,
+      updatedAt: true,
     },
   });
 }

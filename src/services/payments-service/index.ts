@@ -46,12 +46,11 @@ async function ticketTypeExistOrFail(ticketTypeId: number): Promise<TicketType> 
   return ticketType;
 }
 
-async function changeTicketStatusPaid(ticketId: number): Promise<Ticket> {
+async function changeTicketStatusPaid(ticketId: number): Promise<void> {
   const ticket = await ticketRepository.updateToPaid(ticketId);
   if (!ticket) {
     throw notFoundError();
   }
-  return ticket;
 }
 
 export type PaymentParams = Pick<Payment, "ticketId" | "cardIssuer" | "cardLastDigits">
