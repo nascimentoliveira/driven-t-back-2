@@ -29,7 +29,7 @@ export async function listTicket(userId: number): Promise<Ticket> {
   return ticket;
 }
 
-async function userHasEnrollOrFail(userId: number): Promise<Enrollment> {
+export async function userHasEnrollOrFail(userId: number): Promise<Enrollment> {
   const enrollment = await enrollmentRepository.findUserEnroll(userId);
   if (!enrollment) {
     throw notFoundError();
@@ -46,7 +46,7 @@ async function ticketTypeExistOrFail(ticketTypeId: number): Promise<TicketType> 
 }
 
 async function userHasTicketOrFail(enrollmentId: number): Promise<Ticket> {
-  const ticket = await ticketRepository.find(enrollmentId);
+  const ticket = await ticketRepository.findByEnroll(enrollmentId);
   if (!ticket) {
     throw notFoundError();
   }

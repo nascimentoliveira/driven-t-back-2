@@ -1,5 +1,5 @@
 import Joi from "joi";
 
 export const ticketsSchema = Joi.object({
-  ticketTypeId: Joi.number().required(),
+  ticketTypeId: Joi.number().greater(0).required(),
 });
